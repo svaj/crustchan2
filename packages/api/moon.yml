@@ -1,0 +1,14 @@
+layer: 'application'
+language: 'rust'
+project:
+  name: 'api'
+  description: 'The API powering crustchan2'
+  owner: 'chris@svajlenka.com'
+
+tasks:
+  build:
+    command: 'cargo build --release --bin api'
+    inputs:
+      - 'src/**/*'
+    outputs:
+      - 'build'

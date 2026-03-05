@@ -1,0 +1,21 @@
+# Enable JavaScript with custom settings
+javascript:
+  packageManager: 'pnpm'
+
+# Enable TypeScript
+typescript: {}
+
+# Enable pnpm
+pnpm:
+  version: '10.30.3'
+
+# Enable Node
+node:
+  version: '22.22.0'
+
+# Enable Rust
+rust:
+  version: '1.93.1'
+#Enable proto
+proto:
+  version: '0.55.3'

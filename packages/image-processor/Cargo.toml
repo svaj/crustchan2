@@ -1,0 +1,11 @@
+[package]
+name = "crustchan-image-processor"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[[bin]]
+name = "image-processor"
+path = "src/main.rs"
+test = false
+

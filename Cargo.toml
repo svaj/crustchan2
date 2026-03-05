@@ -1,0 +1,11 @@
+[workspace]
+resolver = "3"
+members = ["packages/api", "packages/migration", "packages/lib", "packages/image-processor"]
+
+
+[workspace.dependencies]
+anyhow = "1.0.102"
+chrono = "0.4.44"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.149"
+uuid = { version = "1.21.0", features = ["serde", "v4"] }

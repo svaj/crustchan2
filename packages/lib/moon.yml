@@ -1,0 +1,14 @@
+layer: 'application'
+language: 'rust'
+project:
+  name: 'image-processor'
+  description: 'The function that processes uploaded images'
+  owner: 'chris@svajlenka.com'
+
+tasks:
+  build:
+    command: 'cargo build --release --lib crustchan-lib'
+    inputs:
+      - 'src/**/*'
+    outputs:
+      - 'build'

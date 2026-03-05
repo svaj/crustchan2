@@ -1,0 +1,39 @@
+[package]
+name = "crustchan-api"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+aide = { version = "0.15.1", features = ["axum", "axum-json", "axum-multipart", "axum-tokio", "redoc", "swagger", "scalar"] }
+anyhow = "1.0.102"
+dotenvy = "0.15.7"
+sea-orm = { version = "2.0.0-rc.36", features = [ "sqlx-postgres","sqlx-sqlite", "runtime-tokio", "macros", "with-json", "with-chrono", "with-uuid" ] }
+tokio = { version = "1.50.0", features = ["rt", "macros", "rt-multi-thread"] }
+axum = { version = "0.8.8", features = ["multipart"] }
+rustis = { version = "0.19.1", features = ["tokio-runtime", "json"] }
+tracing-subscriber = { version = "0.3.22", features = ["env-filter", "json"] }
+tower-cookies = "0.11.0"
+chrono = "0.4.44"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.149"
+schemars ={ version = "0.9.0", features = ["uuid1"] }
+uuid = { version = "1.21.0", features = ["serde", "v4"] }
+crustchan-migration = { path = "../migration" }
+
+[dev-dependencies]
+sea-orm = { version = "2.0.0-rc.36", features = [ "sqlx-sqlite", "runtime-tokio", "macros", "mock", "with-json", "with-chrono", "with-uuid"  ] }
+
+
+[[bin]]
+name = "api"
+path = "src/main.rs"
+test = false
+
+
+[package.metadata.scripts]
+build-lambda = "cargo lambda build --output-format zip -F lambda --arm64 --no-default-features"
+build-api = "cargo build --release --bin api"
+watch-api = "cargo watch cargo \"run --bin api\""
+run-api = "cargo run --bin api"
+lint = "cargo build --bin api && cargo clippy -- -D warnings"

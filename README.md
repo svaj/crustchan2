@@ -3,7 +3,7 @@
 ***IMPORTANT*** This repository is far from its first release.  Expect nothing to work here just yet.
 
 ## What is it?
-Crustchan is an imageboard built for the cloud whose backend is in Rust.  It can be seen as a successor to the unfinished [crustchan](https://github.com/devhax-heavy-industry/crustchan).
+Crustchan 2 is an imageboard built for the cloud whose backend is in Rust.  It can be seen as a successor to the unfinished [crustchan](https://github.com/devhax-heavy-industry/crustchan).
 
 ## Planned differences from crustchan
 
@@ -20,7 +20,8 @@ Crustchan is an imageboard built for the cloud whose backend is in Rust.  It can
 * (potentially) Rust-react SSR via [Tuono](https://tuono.dev)
 * Image optimization of every image uploaded, hope you like some webp - maybe I'll wipe metadata here like geolocation information?
 * (maybe down the line) automagic websocket or sse updates for threads/watched threads
-* Moving away from AWS Free tier ( They only support a RDBMS for 1 year free anyway)
+* Moving away from AWS Free tier to Azure Free tier (free VM, cloud sql, )
+* Using OpenAI's Moderation API for image classification
 * Less focus on refined deployment - I might just deploy this to my personal server somewhere, maybe I'll wrap it up in a Portainer stack (Sorry Terraform I still love you)
 * I plan to make use of AI Agents to assist in the building of thise software.  This is purely just for my own learning and will try to be steadfast in not creating slop / allowing nonsense through PRs.
 
