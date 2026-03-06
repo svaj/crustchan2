@@ -22,7 +22,7 @@ impl AppError {
     pub fn new(error: &str) -> Self {
         Self {
             error: error.to_string(),
-            error_id: Uuid::new_v4(),
+            error_id: Uuid::now_v7(),
             status: StatusCode::BAD_REQUEST,
             error_details: None,
         }

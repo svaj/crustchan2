@@ -22,7 +22,7 @@ Crustchan 2 is an imageboard built for the cloud whose backend is in Rust.  It c
 * (maybe down the line) automagic websocket or sse updates for threads/watched threads
 * Moving away from AWS Free tier to Azure Free tier (free VM, cloud sql, )
 * Using OpenAI's Moderation API for image classification
-* Less focus on refined deployment - I might just deploy this to my personal server somewhere, maybe I'll wrap it up in a Portainer stack (Sorry Terraform I still love you)
+* Less focus on refined deployment - I might just deploy this to my personal server somewhere + Azure, maybe I'll wrap it up in a Portainer stack (Sorry Terraform I still love you)
 * I plan to make use of AI Agents to assist in the building of thise software.  This is purely just for my own learning and will try to be steadfast in not creating slop / allowing nonsense through PRs.
 
 

@@ -5,18 +5,8 @@ pub mod post;
 pub mod report;
 pub mod thread;
 pub mod user;
-pub mod user_identifiers;
+pub mod user_identifier;
 pub mod user_profile;
-
-pub use ban::*;
-pub use board::*;
-pub use file::*;
-pub use post::*;
-pub use report::*;
-pub use thread::*;
-pub use user::*;
-pub use user_identifiers::*;
-pub use user_profile::*;
 
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Deserializer, Serialize, Serializer};

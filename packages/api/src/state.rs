@@ -1,10 +1,6 @@
-use rustis::{
-    client::Client,
-};
+use rustis::client::Client;
 use sea_orm::DatabaseConnection;
-use std::{
-    sync::Arc,
-};
+use std::sync::Arc;
 
 // Shared application state, database connection and redis client
 #[derive(Clone)]

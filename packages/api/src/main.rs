@@ -3,15 +3,9 @@ use aide::{
     openapi::{OpenApi, Tag},
     transform::TransformOpenApi,
 };
-use axum::{
-    Extension,
-    http::StatusCode, 
-    Json
-};
+use axum::{Extension, Json, http::StatusCode};
 // use crustchan_migration::{Migrator, MigratorTrait};
-use rustis::{
-    client::Client,
-};
+use rustis::client::Client;
 use sea_orm::Database;
 use std::env;
 use std::sync::Arc;
@@ -28,12 +22,10 @@ use errors::AppError;
 use health::routes::health_routes;
 use state::AppState;
 
-
-
 #[tokio::main]
 async fn start() -> anyhow::Result<()> {
     unsafe {
-      env::set_var("RUST_LOG", "debug");
+        env::set_var("RUST_LOG", "debug");
     }
     tracing_subscriber::fmt::init();
 
@@ -43,9 +35,31 @@ async fn start() -> anyhow::Result<()> {
     let port = env::var("PORT").expect("PORT is not set in .env file");
     let server_url = format!("{host}:{port}");
 
-    let db_conn = Database::connect(db_url)
+    let db_conn = &Database::connect(db_url)
         .await
         .expect("Database connection failed");
+
+    // synchronizes database schema with entity definitions
+    // let test= db_conn.get_schema_registry("entity::*");
+    // dbg!(&test);
+    // let test_result = test.sync(db_conn).await?;
+    // dbg!(test_result);
+    db_conn
+        .get_schema_builder()
+        .register(entity::ban::Entity)
+        .register(entity::board::Entity)
+        .register(entity::file::Entity)
+        .register(entity::post::Entity)
+        .register(entity::report::Entity)
+        .register(entity::thread::Entity)
+        .register(entity::user_identifier::Entity)
+        .register(entity::user_profile::Entity)
+        .register(entity::user::Entity)
+        .sync(db_conn)
+        .await?;
+
+    // let a:crustchan_entity::user =
+
     // Migrator::up(&db_conn, None).await.unwrap();
 
     let redis_host = env::var("REDIS_HOST").expect("REDIS_HOST is not set in .env file");
@@ -53,7 +67,10 @@ async fn start() -> anyhow::Result<()> {
     let redis_url_full = format!("redis://{redis_host}:{redis_port}");
     let cache_conn = Arc::new(Client::connect(redis_url_full).await.unwrap());
 
-    let state = AppState { db_conn, cache_conn };
+    let state = AppState {
+        db_conn: db_conn.to_owned(),
+        cache_conn,
+    };
     let mut api = OpenApi::default();
 
     let app = ApiRouter::new()
@@ -104,7 +121,6 @@ pub fn main() {
         println!("Error: {err}");
     }
 }
-
 
 fn api_docs(api: TransformOpenApi) -> TransformOpenApi {
     api.title("Aide axum Open API")
