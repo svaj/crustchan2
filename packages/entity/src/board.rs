@@ -9,6 +9,10 @@ use serde::{Deserialize, Serialize};
 pub struct Model {
     #[sea_orm(primary_key)]
     pub id: Uuid,
+    pub category_id: Uuid,
+    #[sea_orm(belongs_to, from = "category_id", to = "id")]
+    pub category: HasOne<super::category::Entity>,
+
     pub long_name: String,  // e.g. "Random"
     pub short_name: String, // e.g. "b" for "/b/"
     #[sea_orm(column_type = "Text")]

@@ -20,6 +20,18 @@ pub struct Model {
     #[sea_orm(has_many, relation_enum = "User", via_rel = "User")]
     pub bans: HasMany<super::ban::Entity>,
 
+    #[sea_orm(has_one)]
+    pub permissions: HasOne<super::user_permissions::Entity>,
+
+    #[sea_orm(has_one)]
+    pub profile: HasOne<super::user_profile::Entity>,
+
+    #[sea_orm(has_many)]
+    pub posts: HasMany<super::post::Entity>,
+
+    #[sea_orm(has_many)]
+    pub files: HasMany<super::file::Entity>,
+
     #[serde(serialize_with = "serialize_dt", deserialize_with = "deserialize_dt")]
     pub created_at: DateTime<Utc>,
     #[serde(serialize_with = "serialize_dt", deserialize_with = "deserialize_dt")]

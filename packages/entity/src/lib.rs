@@ -1,11 +1,13 @@
 pub mod ban;
 pub mod board;
+pub mod category;
 pub mod file;
 pub mod post;
 pub mod report;
 pub mod thread;
 pub mod user;
 pub mod user_identifier;
+pub mod user_permissions;
 pub mod user_profile;
 
 use chrono::{DateTime, Utc};
