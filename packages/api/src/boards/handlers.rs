@@ -51,6 +51,22 @@ pub struct BoardResponse {
     pub threads_per_page: u32,
 }
 
+#[derive(Debug, Serialize, Deserialize, JsonSchema)]
+pub struct BoardWithThreadsResponse {
+    pub id: Uuid,
+    pub category_id: Uuid,
+    pub long_name: String,
+    pub short_name: String,
+    pub description: String,
+    pub sfw: bool,
+    pub users_only: bool,
+    pub anon_only: bool,
+    pub archived: bool,
+    pub threads_per_page: u32,
+    //TODO: ThreadResponse to include threads&first&last3posts&files
+    // pub threads: Vec<ThreadResponse>
+}
+
 impl From<board::Model> for BoardResponse {
     fn from(model: board::Model) -> Self {
         Self {
@@ -68,6 +84,7 @@ impl From<board::Model> for BoardResponse {
     }
 }
 
+// TODO: Check permissions!
 pub async fn create_board(
     State(state): State<AppState>,
     Json(req): Json<CreateBoardRequest>,
@@ -131,6 +148,7 @@ pub async fn get_board(
     }
 }
 
+// TODO: Check permissions!
 pub async fn update_board(
     State(state): State<AppState>,
     Path(id): Path<Uuid>,
@@ -174,6 +192,7 @@ pub async fn update_board(
     }
 }
 
+// TODO: Check permissions!
 pub async fn delete_board(State(state): State<AppState>, Path(id): Path<Uuid>) -> StatusCode {
     let board_result = board::Entity::find_by_id(id).one(&state.db_conn).await;
 

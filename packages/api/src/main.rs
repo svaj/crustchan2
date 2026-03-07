@@ -1,8 +1,4 @@
-use aide::{
-    axum::ApiRouter,
-    openapi::{OpenApi, Tag},
-    transform::TransformOpenApi,
-};
+use aide::{axum::ApiRouter, openapi::OpenApi, transform::TransformOpenApi};
 use axum::{Extension, Json, http::StatusCode};
 // use crustchan_migration::{Migrator, MigratorTrait};
 use rustis::client::Client;
@@ -16,12 +12,14 @@ pub mod boards;
 pub mod docs;
 pub mod errors;
 pub mod health;
+pub mod reports;
 pub mod state;
 
 use boards::routes::board_routes;
 use docs::docs_routes;
 use errors::AppError;
 use health::routes::health_routes;
+use reports::routes::report_routes;
 use state::AppState;
 
 #[tokio::main]
@@ -45,12 +43,14 @@ async fn start() -> anyhow::Result<()> {
     db_conn
         .get_schema_builder()
         .register(entity::ban::Entity)
+        .register(entity::category::Entity)
         .register(entity::board::Entity)
         .register(entity::file::Entity)
         .register(entity::post::Entity)
         .register(entity::report::Entity)
         .register(entity::thread::Entity)
         .register(entity::user_identifier::Entity)
+        .register(entity::user_permissions::Entity)
         .register(entity::user_profile::Entity)
         .register(entity::user::Entity)
         .sync(db_conn)
@@ -72,6 +72,7 @@ async fn start() -> anyhow::Result<()> {
     let app = ApiRouter::new()
         .nest_api_service("/status", health_routes(state.clone()))
         .nest_api_service("/boards", board_routes(state.clone()))
+        .nest_api_service("/reports", report_routes(state.clone()))
         .nest_api_service("/docs", docs_routes(state.clone()))
         .finish_api_with(&mut api, api_docs)
         .layer(Extension(Arc::new(api))) // Arc is very important here or you will face massive memory and performance issues
@@ -120,14 +121,9 @@ pub fn main() {
 }
 
 fn api_docs(api: TransformOpenApi) -> TransformOpenApi {
-    api.title("Aide axum Open API")
-        .summary("An example Todo application")
+    api.title("Crustchan")
+        .summary("An imageboard for the modern web")
         .description(include_str!("../../../README.md"))
-        .tag(Tag {
-            name: "todo".into(),
-            description: Some("Todo Management".into()),
-            ..Default::default()
-        })
         .security_scheme(
             "ApiKey",
             aide::openapi::SecurityScheme::ApiKey {
