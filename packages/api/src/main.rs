@@ -14,6 +14,7 @@ pub mod errors;
 pub mod health;
 pub mod reports;
 pub mod state;
+pub mod users;
 
 use boards::routes::board_routes;
 use docs::docs_routes;
@@ -21,6 +22,7 @@ use errors::AppError;
 use health::routes::health_routes;
 use reports::routes::report_routes;
 use state::AppState;
+use users::routes::user_routes;
 
 #[tokio::main]
 async fn start() -> anyhow::Result<()> {
@@ -73,6 +75,7 @@ async fn start() -> anyhow::Result<()> {
         .nest_api_service("/status", health_routes(state.clone()))
         .nest_api_service("/boards", board_routes(state.clone()))
         .nest_api_service("/reports", report_routes(state.clone()))
+        .nest_api_service("/users", user_routes(state.clone()))
         .nest_api_service("/docs", docs_routes(state.clone()))
         .finish_api_with(&mut api, api_docs)
         .layer(Extension(Arc::new(api))) // Arc is very important here or you will face massive memory and performance issues
