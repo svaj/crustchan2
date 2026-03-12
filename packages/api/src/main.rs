@@ -52,7 +52,7 @@ async fn start() -> anyhow::Result<()> {
         .register(entity::report::Entity)
         .register(entity::thread::Entity)
         .register(entity::user_identifier::Entity)
-        .register(entity::user_permissions::Entity)
+        .register(entity::user_permission::Entity)
         .register(entity::user_profile::Entity)
         .register(entity::user::Entity)
         .sync(db_conn)

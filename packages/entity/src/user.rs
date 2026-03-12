@@ -21,7 +21,7 @@ pub struct Model {
     pub bans: HasMany<super::ban::Entity>,
 
     #[sea_orm(has_one)]
-    pub permissions: HasOne<super::user_permissions::Entity>,
+    pub permissions: HasOne<super::user_permission::Entity>,
 
     #[sea_orm(has_one)]
     pub profile: HasOne<super::user_profile::Entity>,

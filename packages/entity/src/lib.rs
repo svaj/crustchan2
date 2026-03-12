@@ -7,7 +7,7 @@ pub mod report;
 pub mod thread;
 pub mod user;
 pub mod user_identifier;
-pub mod user_permissions;
+pub mod user_permission;
 pub mod user_profile;
 
 use chrono::{DateTime, Utc};

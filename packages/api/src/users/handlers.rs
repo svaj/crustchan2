@@ -200,6 +200,15 @@ pub async fn delete_user(
 
 // Documentation functions
 
+
+
+pub fn login_user_docs(op: TransformOperation) -> TransformOperation {
+    op.description("Authenticate a user")
+        .response::<201, Json<UserResponse>>()
+        .response_with::<400, Json<AppError>, _>(|res| res.description("Invalid request"))
+}
+
+
 pub fn create_user_docs(op: TransformOperation) -> TransformOperation {
     op.description("Create a new user")
         .response::<201, Json<UserResponse>>()

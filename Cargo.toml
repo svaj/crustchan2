@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["packages/api", "packages/migration", "packages/lib", "packages/image-processor"]
+members = ["packages/api", "packages/migration", "packages/lib", "packages/image-processor", "packages/frontend-ng"]
 
 
 [workspace.dependencies]

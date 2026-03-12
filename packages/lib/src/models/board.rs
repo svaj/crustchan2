@@ -16,7 +16,6 @@ pub struct Board {
     pub ai_only: bool,                 // Only AI-generated content allowed
     pub human_only: bool,              // Only human-generated content allowed
     pub archived: bool, // No new threads allowed, but existing threads are still visible
-    pub current_post_sequence: u64, // current thread/post number sequence for this board, used to generate post numbers
     pub min_image_width: Option<u32>, // minimum image width in pixels
     pub min_image_height: Option<u32>, // minimum image height in pixels
     pub max_image_width: Option<u32>, // maximum image width in pixels
@@ -41,6 +40,8 @@ pub struct Board {
     #[serde(serialize_with = "serialize_dt", deserialize_with = "deserialize_dt")]
     pub created_at: DateTime<Utc>,
 }
+
+//TODO: Also create a sequence per table to have a nice user friendly post count per board
 
 #[derive(Debug, Serialize, Clone, Deserialize)]
 pub struct BoardInput {
@@ -92,7 +93,6 @@ impl From<BoardInput> for Board {
             ai_only: board.ai_only,
             human_only: board.human_only,
             archived: false,
-            current_post_sequence: 0,
 
             min_image_width: None,  // minimum image width in pixels
             min_image_height: None, // minimum image height in pixels
