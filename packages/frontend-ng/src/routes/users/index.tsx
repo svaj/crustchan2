@@ -1,0 +1,1 @@
+<p>Hi there! This should be **protected**</p>

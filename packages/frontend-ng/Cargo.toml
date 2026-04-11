@@ -1,5 +1,5 @@
 [package]
-name = "tuono-app"
+name = "crustchan-fe-ng"
 version = "0.0.1"
 edition = "2024"
 
@@ -8,7 +8,17 @@ name = "tuono"
 path = ".tuono/main.rs"
 
 [dependencies]
-tuono_lib = "0.19.7"
+chrono = "0.4.44"
+#tuono_lib = "0.19.7"
+tuono_lib = { path="/home/svaj/development/tuono/crates/tuono_lib" } # { git = "https://github.com/svaj/tuono.git", branch = "middleware-and-extractors" }
+tuono_lib_macros = { path="/home/svaj/development/tuono/crates/tuono_lib_macros" } # { git = "https://github.com/svaj/tuono.git", branch = "middleware-and-extractors" }
 serde = { workspace = true }
 serde_json = { workspace = true }
 crustchan-entity = { path = "../entity" }
+tower-http = { version="0.6.8", features = ["full"] }
+tower = "0.5.3"
+http = "1.4.0"
+axum-oidc-client = { path="/home/svaj/development/personal/axum-oidc-client", features = ["sql-cache-postgres", "sql-cache-sqlite", "jwt", "authentication"]}  # { version="0.3.0", features = ["sql-cache-postgres", "sql-cache-sqlite"] }
+dotenvy = "0.15.7"
+tuono = "0.19.7"
+futures = "0.3.32"
