@@ -1,5 +1,6 @@
 [package]
 name = "crustchan-fe-ng"
+path = "./mod.rs"
 version = "0.0.1"
 edition = "2024"
 
@@ -16,9 +17,25 @@ serde = { workspace = true }
 serde_json = { workspace = true }
 crustchan-entity = { path = "../entity" }
 tower-http = { version="0.6.8", features = ["full"] }
-tower = "0.5.3"
+tower = {version="0.5.3", features=["discover"]}
 http = "1.4.0"
+axum-gate = { version="1.1.0", features=["storage-seaorm-v2","audit-logging"]}
 axum-oidc-client = { path="/home/svaj/development/personal/axum-oidc-client", features = ["sql-cache-postgres", "sql-cache-sqlite", "jwt", "authentication"]}  # { version="0.3.0", features = ["sql-cache-postgres", "sql-cache-sqlite"] }
 dotenvy = "0.15.7"
 tuono = "0.19.7"
 futures = "0.3.32"
+sea-orm = { version = "2.0.0-rc.38", features = [ "sqlx-postgres","sqlx-sqlite", "runtime-tokio", "macros", "with-json", "with-chrono", "with-uuid", "schema-sync", "entity-registry" ] }
+rustis = { version = "0.19.1", features = ["tokio-runtime", "json"] }
+uuid = { workspace = true }
+tracing-subscriber = { version = "0.3.22", features = ["env-filter", "json"] }
+tracing = "0.1.37"
+tokio = "1.51.1"
+anyhow.workspace = true
+tower-service = "0.3.3"
+http-body = "1.0.1"
+bytes = "1.11.1"
+tower-layer = "0.3.3"
+# crustchan-migration = { path = "../migration" }
+
+[patch.crates-io]
+sea-orm = { version = "2.0.0-rc.38", features = [ "sqlx-postgres","sqlx-sqlite", "runtime-tokio", "macros", "with-json", "with-chrono", "with-uuid", "schema-sync", "entity-registry" ] }
