@@ -20,7 +20,7 @@ pub struct Board {
     pub min_image_height: Option<u32>, // minimum image height in pixels
     pub max_image_width: Option<u32>, // maximum image width in pixels
     pub max_image_height: Option<u32>, // maximum image height in pixels
-    pub max_filesize: Option<u64>,  // maximum image filesize in bytes
+    pub max_filesize: Option<u64>, // maximum image filesize in bytes
 
     pub max_thread_bumps: Option<u32>, // maximum number of times a thread can be bumped by new posts
     pub max_thread_replies: Option<u32>, // maximum number of replies in a thread before it is auto-locked

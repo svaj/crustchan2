@@ -1,31 +1,29 @@
-use axum_gate::gate::{Gate, bearer};
 use axum_gate::gate::bearer::BearerGate;
+use axum_gate::gate::{Gate, bearer};
 use axum_gate::groups::Group;
-use axum_gate::prelude::{Account,  JsonWebToken, JwtClaims};
+use axum_gate::prelude::{Account, JsonWebToken, JwtClaims};
 use axum_gate::roles::Role;
+use std::error::Error;
+use std::fmt;
+use std::pin::Pin;
+use std::task::{Context, Poll};
 use tower::Layer;
 use tower_http::classify::{ServerErrorsAsFailures, SharedClassifier};
-use tower_service::Service;
 use tower_http::trace::{self, TraceLayer};
-use tracing::{Level};
+use tower_service::Service;
+use tracing::Level;
 use tuono_lib::axum::Router;
-use tuono_lib::axum::{
-     http::StatusCode,
-};
-use std::pin::Pin;
-use std::task::{Poll, Context};
-use std::fmt;
-use std::error::Error;
+use tuono_lib::axum::http::StatusCode;
 
 #[tuono_lib::middleware]
-pub fn root_tracing_middleware() ->TraceLayer<SharedClassifier<ServerErrorsAsFailures>>
-where TraceLayer<SharedClassifier<ServerErrorsAsFailures>>: Clone+Send+Sync+'static {
- TraceLayer::new_for_http().make_span_with(trace::DefaultMakeSpan::new()
-                    .level(Level::INFO))
-                .on_response(trace::DefaultOnResponse::new()
-                    .level(Level::INFO))
+pub fn root_tracing_middleware() -> TraceLayer<SharedClassifier<ServerErrorsAsFailures>>
+where
+    TraceLayer<SharedClassifier<ServerErrorsAsFailures>>: Clone + Send + Sync + 'static,
+{
+    TraceLayer::new_for_http()
+        .make_span_with(trace::DefaultMakeSpan::new().level(Level::INFO))
+        .on_response(trace::DefaultOnResponse::new().level(Level::INFO))
 }
-
 
 use crate::tuono_main_state::app::STATE;
 use crate::tuono_main_state::jwt::get_jwt;
@@ -36,9 +34,6 @@ use crate::tuono_main_state::state::AppState;
 // pub struct AuthLayer {
 //     state: AppState,
 // }
-
-
-
 
 // impl<S> Layer<S> for AuthService<S>
 // where S:  Service<tuono_lib::axum::extract::Request, Error = S> + Clone + Send + Sync + 'static,
@@ -51,9 +46,7 @@ use crate::tuono_main_state::state::AppState;
 //     }
 // }
 
-
-
-//  impl<S> FromRef<AuthService<S>> for AppState      
+//  impl<S> FromRef<AuthService<S>> for AppState
 //    where
 //      AuthService<S>: Clone +Send +Sync,
 //      S: Clone +Send + Sync,
@@ -95,15 +88,12 @@ use crate::tuono_main_state::state::AppState;
 //     }
 // }
 
-
 // This service implements the Log behavior
 // #[derive(Clone,Debug)]
 // pub struct AuthService {
 //     layer: AuthLayer,
 //     state: AppState
 // }
-
-
 
 // impl<R> Service<R> for AuthService
 // where
@@ -118,7 +108,7 @@ use crate::tuono_main_state::state::AppState;
 
 //     fn call(&mut self, request: R) -> Self::Future {
 //         // do something with state.routes!
-        
+
 //         // Insert log statement here or other functionality
 //         println!("AuthService call");
 //         dbg!(&self.state);
@@ -155,26 +145,25 @@ use crate::tuono_main_state::state::AppState;
 //     }
 // }
 
-
-
-
-#[derive(Clone,Debug)]
-pub struct Wrap<S> 
-where S: Clone + Send +Sync +'static{
+#[derive(Clone, Debug)]
+pub struct Wrap<S>
+where
+    S: Clone + Send + Sync + 'static,
+{
     inner: S,
 }
 
-impl<S> Wrap<S> 
-where S: Clone +Send + Sync+ 'static{
+impl<S> Wrap<S>
+where
+    S: Clone + Send + Sync + 'static,
+{
     pub const fn new(inner: S) -> Wrap<S> {
-        Wrap {
-            inner
-        }
+        Wrap { inner }
     }
 }
 
 // // The error returned if processing a request timed out
-#[derive(Debug,Clone)]
+#[derive(Debug, Clone)]
 pub struct Expired;
 
 impl fmt::Display for Expired {
@@ -187,34 +176,31 @@ impl Error for Expired {}
 
 impl<S, R> Service<R> for Wrap<S>
 where
-     S: Service<R> + Clone +Sync+Send+ 'static,
-    R: Sync+ Send+ 'static,
+    S: Service<R> + Clone + Sync + Send + 'static,
+    R: Sync + Send + 'static,
 {
     type Response = S::Response;
     type Error = S::Error;
-    type Future=  Pin<Box<dyn Future<Output = Result<Self::Response, Self::Error>>>>;
+    type Future = Pin<Box<dyn Future<Output = Result<Self::Response, Self::Error>>>>;
 
     fn poll_ready(&mut self, cx: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
         // Our timeout service is ready if the inner service is ready.
         // This is how backpressure can be propagated through a tree of nested services.
-       self.inner.poll_ready(cx).map_err(Into::into)
+        self.inner.poll_ready(cx).map_err(Into::into)
     }
 
     fn call(&mut self, req: R) -> Self::Future {
-        
         // let state = ApiState::from_ref();
-        
+
         // Create a future that completes after `self.timeout`
         // let timeout = tokio::time::sleep(self.timeout);
 
         // Call the inner service and get a future that resolves to the response
         // let fut self.original_service.call(req);
-                let clone = self.inner.clone();
+        let clone = self.inner.clone();
         // take the service that was ready
         let mut inner = std::mem::replace(&mut self.inner, clone);
-        Box::pin(async move {
-             inner.call(req).await
-        })
+        Box::pin(async move { inner.call(req).await })
 
         // Wrap those two futures in another future that completes when either one completes
         //
@@ -222,27 +208,22 @@ where
         // And an error will be returned and `fut` will be dropped and not polled again
         //
         // We have to box the errors so the types match
-
     }
 }
 
-
-
-
-
-#[derive(Clone,Debug)]
+#[derive(Clone, Debug)]
 pub struct ServiceWrapperLayer;
 
 impl ServiceWrapperLayer {
     pub const fn new() -> Self {
-        ServiceWrapperLayer {
-            
-        }
+        ServiceWrapperLayer {}
     }
 }
 
 impl<S> Layer<S> for ServiceWrapperLayer
-    where S: Clone +Send +Sync +'static{
+where
+    S: Clone + Send + Sync + 'static,
+{
     type Service = Wrap<S>;
 
     fn layer(&self, service: S) -> Self::Service {
@@ -277,8 +258,6 @@ impl<S> Layer<S> for ServiceWrapperLayer
 //     jwt_encoder: Option<AccountEncoderFn<R, G>>,
 // }
 
-
-
 // /// Type alias for an account encoding function.
 // type AccountEncoderFn<R, G> = Arc<dyn Fn(Account<R, G>) -> OAuth2Result<String> + Send + Sync>;
 // /// Type alias for an account mapper function.
@@ -303,9 +282,9 @@ impl<S> Layer<S> for ServiceWrapperLayer
 //     R: AccessHierarchy + Eq + Display + Send + Sync + 'static,
 //     G: Eq + Clone + Send + Sync + 'static,
 //     Role: AccessHierarchy + Eq + Display + Send + Sync + 'static,
-//     Group:Eq + Clone + Send + Sync + 'static, 
+//     Group:Eq + Clone + Send + Sync + 'static,
 //  {
-     
+
 //     // Required method
 //       fn get_layer(&self, base: &str ) -> impl Layer<OAuth2HandlerState<R,G>>;
 //       fn get_routes_and_handler(&self) -> RoutesAndHandlers;
@@ -328,13 +307,12 @@ impl<S> Layer<S> for ServiceWrapperLayer
 //     error_description: Option<String>,
 // }
 
-
 // impl<R, G> PubLayersAndRoutes<R,G> for OAuth2Gate<R, G>
 // where
 //     R: AccessHierarchy + Eq + Display + Send + Sync + 'static,
 //     G: Eq + Clone + Send + Sync + 'static,
 //     Role: AccessHierarchy + Eq + Display + Send + Sync + 'static,
-//     Group:Eq + Clone + Send + Sync + 'static, 
+//     Group:Eq + Clone + Send + Sync + 'static,
 // {
 //     pub fn get_layer(&self, base: &str ) -> impl Layer<OAuth2HandlerState<R,G>> {
 
@@ -385,7 +363,6 @@ impl<S> Layer<S> for ServiceWrapperLayer
 //         Extension(handler_state)
 //     }
 
-
 //     pub fn get_routes_and_handler(&self) -> RoutesAndHandlers {
 //                 let login_path = format!("{base}/login");
 //         let callback_path = format!("{base}/callback");
@@ -396,7 +373,6 @@ impl<S> Layer<S> for ServiceWrapperLayer
 //         }
 //     }
 
-    
 // /// Generates PKCE/state cookies and redirects to the provider's authorization endpoint.
 // async fn login_handler(
 //     Extension(st): Extension<Arc<OAuth2HandlerState<Role, Group>>>,
@@ -758,7 +734,7 @@ impl<S> Layer<S> for ServiceWrapperLayer
 async fn handle_anyhow_error(err: anyhow::Error) -> (StatusCode, String) {
     (
         StatusCode::INTERNAL_SERVER_ERROR,
-        format!("Something went wrong: {err}")
+        format!("Something went wrong: {err}"),
     )
 }
 /*
@@ -778,10 +754,18 @@ pub fn root_gate_extractor_routes_middleware() ->ServiceBuilder<Stack<LayerFn<In
 }
 */
 
-#[tuono_lib::middleware] 
-pub fn root_gate_optional_anon_routes_middleware() -> BearerGate<JsonWebToken<JwtClaims<Account<Role, Group>>>, Role, Group, bearer::JwtConfig<Role,Group>>
-{
- Gate::bearer::<JsonWebToken<JwtClaims<Account<Role, Group>>>, Role, Group>("Crustchan", get_jwt()).allow_anonymous_with_optional_user()
+#[tuono_lib::middleware]
+pub fn root_gate_optional_anon_routes_middleware() -> BearerGate<
+    JsonWebToken<JwtClaims<Account<Role, Group>>>,
+    Role,
+    Group,
+    bearer::JwtConfig<Role, Group>,
+> {
+    Gate::bearer::<JsonWebToken<JwtClaims<Account<Role, Group>>>, Role, Group>(
+        "Crustchan",
+        get_jwt(),
+    )
+    .allow_anonymous_with_optional_user()
 }
 
 // #[tuono_lib::middleware]
@@ -792,9 +776,9 @@ pub fn root_gate_optional_anon_routes_middleware() -> BearerGate<JsonWebToken<Jw
 //     // let Some(gate_routes) = routes else { panic!("No gate routes");};
 //     // gate_routes
 //     // let state = Arc::new(state);
-//     // let state = 
+//     // let state =
 //     println!("in middleware gates setup fn.");
-    
+
 //     // let layr = STATE.clone().oauth2_gate.get_layer("/auth");
 //     // let layr = ServiceBuilder::new().layer(layer_fn(svc)).into_inner();
 //     layr
@@ -804,7 +788,6 @@ pub fn root_gate_optional_anon_routes_middleware() -> BearerGate<JsonWebToken<Jw
 //     // Route::<AuthService>{service:AuthLayer{state:state.clone()},state:state.clone()}
 // }
 
-
 pub fn get_router() -> Router {
-  return STATE.router.clone();
+    return STATE.router.clone();
 }

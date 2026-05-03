@@ -5,7 +5,9 @@ use axum::{
 };
 use entity::user;
 use schemars::JsonSchema;
-use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, IntoActiveModel, ModelTrait, QueryFilter};
+use sea_orm::{
+    ActiveModelTrait, ColumnTrait, EntityTrait, IntoActiveModel, ModelTrait, QueryFilter,
+};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
@@ -94,7 +96,7 @@ pub async fn create_user(
     }
 }
 
-pub fn hash_password(raw_text:String) -> String {
+pub fn hash_password(raw_text: String) -> String {
     raw_text
 }
 
@@ -128,10 +130,7 @@ pub async fn get_user(
     State(state): State<AppState>,
     Path(id): Path<Uuid>,
 ) -> (StatusCode, Json<Option<UserResponse>>) {
-    match user::Entity::find_by_id(id)
-        .one(&state.db_conn)
-        .await
-    {
+    match user::Entity::find_by_id(id).one(&state.db_conn).await {
         Ok(Some(user)) => (StatusCode::OK, Json(Some(user.into()))),
         Ok(None) => (StatusCode::NOT_FOUND, Json(None)),
         Err(_) => (StatusCode::INTERNAL_SERVER_ERROR, Json(None)),
@@ -143,9 +142,7 @@ pub async fn update_user(
     Path(id): Path<Uuid>,
     Json(req): Json<UpdateUserRequest>,
 ) -> (StatusCode, Json<Option<UserResponse>>) {
-    let user_result = user::Entity::find_by_id(id)
-        .one(&state.db_conn)
-        .await;
+    let user_result = user::Entity::find_by_id(id).one(&state.db_conn).await;
 
     match user_result {
         Ok(Some(user)) => {
@@ -177,13 +174,8 @@ pub async fn update_user(
     }
 }
 
-pub async fn delete_user(
-    State(state): State<AppState>,
-    Path(id): Path<Uuid>,
-) -> StatusCode {
-    let user_result = user::Entity::find_by_id(id)
-        .one(&state.db_conn)
-        .await;
+pub async fn delete_user(State(state): State<AppState>, Path(id): Path<Uuid>) -> StatusCode {
+    let user_result = user::Entity::find_by_id(id).one(&state.db_conn).await;
 
     match user_result {
         Ok(Some(user)) => {
@@ -200,14 +192,11 @@ pub async fn delete_user(
 
 // Documentation functions
 
-
-
 pub fn login_user_docs(op: TransformOperation) -> TransformOperation {
     op.description("Authenticate a user")
         .response::<201, Json<UserResponse>>()
         .response_with::<400, Json<AppError>, _>(|res| res.description("Invalid request"))
 }
-
 
 pub fn create_user_docs(op: TransformOperation) -> TransformOperation {
     op.description("Create a new user")
@@ -216,7 +205,8 @@ pub fn create_user_docs(op: TransformOperation) -> TransformOperation {
 }
 
 pub fn list_users_docs(op: TransformOperation) -> TransformOperation {
-    op.description("List all users").response::<200, Json<Vec<UserResponse>>>()
+    op.description("List all users")
+        .response::<200, Json<Vec<UserResponse>>>()
 }
 
 pub fn get_user_docs(op: TransformOperation) -> TransformOperation {
