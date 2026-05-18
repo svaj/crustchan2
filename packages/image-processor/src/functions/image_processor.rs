@@ -4,6 +4,6 @@ pub struct BlobTrigger {
 }
 
 pub fn image_processor(trigger: BlobTrigger) {
-    // trigger.path has the path to the blob that triggered the function
-    // trigger.blob has the contents of the blob
+    println!("Processing blob at path {}", trigger.path);
+    // placeholder for processing logic
 }
