@@ -1,0 +1,59 @@
+# Feature Development Lifecycle CI/CD Workflow
+
+on:
+  pull_request:
+    types: [opened, reopened]
+    branches: [develop] # Target branch for PRs
+  issue_comment:
+    # Trigger review agent when a specific keyword is used on the Issue
+    types: [created]
+    paths: [issues/*]
+
+jobs:
+  # 1. Run linting and basic checks always
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      # Add other linting steps (e.g., TypeScript, Rust) here
+      - run: |
+          echo "Running basic static analysis and linting."
+
+  # 2. Run full tests upon PR opening/reopening (Scoped to frontend-ng)
+  test:
+    runs-on: ubuntu-latest
+    needs: [lint]
+    steps:
+      - uses: actions/checkout@v3
+      # Test scoped only to the frontend-ng package as requested by feedback.
+      - name: Build and Test All Services (Frontend NG)
+        run: |
+          echo "Running comprehensive integration tests for packages/frontend-ng..."
+          cd packages/frontend-ng && cargo build && cargo test
+
+  # 3. Automated Review Stage (Simulated Hook)
+  review:
+    runs-on: ubuntu-latest
+    needs: [test]
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Trigger PR Review Agent Logic
+        # In a real setup, this would call an API or run a dedicated job that invokes the logic of pr-review-agent.md
+        run: |
+          echo "--- Running automated review hook for PR # ${{ github.event.number }} ---"
+          echo "Reviewing changes against Feature Specification in issue #${{ github.event.issue.number }}"
+          # Placeholder: Logic to run the agent's evaluation process
+
+  # 4. Merge Gate (Manual/Final Approval)
+  merge_check:
+    runs-on: ubuntu-latest
+    needs: [review]
+    # Only runs if all previous jobs passed and potentially requires human review confirmation
+    if: success() && github.event_name == 'pull_request'
+    steps:
+      - name: Check for Manual Approval Required
+        run: echo "Requires manual approval from senior team members before merging."

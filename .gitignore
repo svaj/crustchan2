@@ -5,3 +5,4 @@
 target/
 *.sqlite
 *.env
+.prd-refinement/

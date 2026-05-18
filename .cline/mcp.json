@@ -1,0 +1,15 @@
+{
+  "servers": {
+    "github.com/github/github-mcp-server": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "--env-file",
+        "../.env",
+        "ghcr.io/github/github-mcp-server"
+      ]
+    }
+  }
+}

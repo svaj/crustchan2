@@ -1,0 +1,12 @@
+**/dist/
+**/coverage/
+**/node_modules/
+**/target/
+.venv/
+.env
+.env.*
+**/package-lock.json
+**/Cargo.lock.toml
+.tuono
+**/out/
+*.log
