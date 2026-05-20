@@ -20,7 +20,7 @@ tower-http = { version="0.6.8", features = ["full"] }
 tower = {version="0.5.3", features=["discover"]}
 http = "1.4.0"
 axum-gate = { version="1.1.0", features=["storage-seaorm-v2","audit-logging"]}
-axum-oidc-client = { path="/home/svaj/development/personal/axum-oidc-client", features = ["sql-cache-postgres", "sql-cache-sqlite", "jwt", "authentication"]}  # { version="0.3.0", features = ["sql-cache-postgres", "sql-cache-sqlite"] }
+axum-oidc-client = { version="0.3.0",features = ["sql-cache-postgres", "sql-cache-sqlite", "jwt", "authentication"]}
 dotenvy = "0.15.7"
 tuono = "0.19.7"
 futures = "0.3.32"
