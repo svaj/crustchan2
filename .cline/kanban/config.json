@@ -1,0 +1,49 @@
+{
+  "shortcuts": [
+    {
+      "label": "FE Build",
+      "command": "cd packages/frontend && $TUONO_BIN_PATH build",
+      "icon": "build"
+    },
+    {
+      "label": "FE Run dev",
+      "command": "cd packages/frontend && npm tuono dev",
+      "icon": "play"
+    },
+    {
+      "label": "FE test",
+      "command": "cd packages/frontend && npm run test",
+      "icon": "code"
+    },
+    {
+      "label": "Run Image Processor",
+      "command": "cargo run --bin image-processor",
+      "icon": "play"
+    },
+    {
+      "label": "Run API",
+      "command": "cargo run --bin api",
+      "icon": "play"
+    },
+    {
+      "label": "Build Entity",
+      "command": "cargo build --lib  entity",
+      "icon": "build"
+    },
+    {
+      "label": "Run Migration",
+      "command": "cargo run --bin migration",
+      "icon": "play"
+    },
+    {
+      "label": "Run All Rust tests",
+      "command": "cargo test --all-targets",
+      "icon": "play"
+    },
+    {
+      "label": "Build All Rust crates",
+      "command": "cargo build --all-targets",
+      "icon": "play"
+    }
+  ]
+}
