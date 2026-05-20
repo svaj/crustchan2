@@ -1,7 +1,9 @@
 ---
 description: "Generate a comprehensive Product Requirements Document (PRD) in Markdown, detailing user stories, acceptance criteria, technical considerations, and metrics. Optionally create GitHub issues upon user confirmation."
 name: "PRD"
-tools: [vscode/extensions, vscode/installExtension, vscode/askQuestions, vscode/toolSearch, read/problems, read/readFile, agent, edit/createDirectory, edit/createFile, edit/editFiles, edit/rename, search, web, github/add_issue_comment, github/get_discussion, github/get_discussion_comments, github/get_label, github/get_me, github/issue_read, github/issue_write, github/label_write, github/list_discussion_categories, github/list_discussions, github/list_issue_types, github/list_issues, github/list_label, github/projects_get, github/projects_list, github/projects_write, github/search_issues, github/sub_issue_write, todo]
+tools: [vscode/extensions, vscode/installExtension, vscode/askQuestions, vscode/toolSearch, read/problems, read/readFile, agent, edit/createDirectory, edit/createFile, edit/editFiles, edit/rename, search, web, github/add_issue_comment, github/get_discussion, github/get_discussion_comments, github/get_label, github/get_me, github/issue_read, github/issue_write, github/label_write, github/list_discussion_categories, github/list_discussions, github/list_issue_types, github/list_issues, github/list_label, github/projects_get, github/projects_list, github/projects_write, github/search_issues, github/sub_issue_write, todo,
+bash,editor,read_files,apply_patch,search,fetch_web,ask_question
+]
 ---
 
 # Create PRD Chat Mode
