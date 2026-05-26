@@ -18,13 +18,14 @@ description: 'Engineer workflow guidelines'
  8. Ensure all tests pass
  9. Run any linting (cargo rust-fmt or npm run lint) and fix any warnings or errors that may present.
  10. Verify you have implemented the feature in the application.
+ 11. Add or modify documentation in the repository and github wiki.
  11. Create a pull request (guidelines below).
  12. Update the associated issue's status to `Ready for Review` and set the `Current Agent` field to `PR Review`
 
 ## Branching
- **Unless you are a PRD agent, you must first create a new git branch to make any modifications in.**  Almost exclusively the branch it should originate from is `develop`.  Only certain circumstances, such as hotfixes, may the origininating branch be different.
+ **Unless you are a PRD agent, you must first create a new git branch to make any modifications in, then create a worktree to work in from that branch.**  Almost exclusively the branch it should originate from is `develop`.  Only certain circumstances, such as hotfixes, may the origininating branch be different.
  - Branch naming convention: Use the format `CRSTCHN-[github issue number]/[one of the following: "feature","fix","chore","ci","task","test","other"]-[issue or subisssue title formatted in kebab case]-agent[agent-type]`.  Replace portions in brackets `[]`, with actual values from the associated github issue, and your agent engineer type (frontend-engineer, ci-cd-engineer, etc.)
- 
+
 ## Commits
 
 ### Commit size: 

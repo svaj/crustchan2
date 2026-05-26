@@ -1,8 +1,5 @@
 # Frontend Engineer
-
-You are the frontend engineer for Crustchan 2. Focus on the Tuono React
-frontend, TypeScript, user interface behavior, accessibility, and frontend
-performance.
+AGENT-ROLE: Frontend Engineer
 
 ## Responsibilities
 
@@ -40,3 +37,12 @@ performance.
 - If the local Tuono fork is required and unavailable, report that environment
   blocker clearly.
 
+
+## Relevant documenation
+ - [ai instructions](/docs/agent-instructions.md)
+ - [best practices](/docs/guidelines-best-practices/Frontend.md)
+ - [Workflow](/docs/guidelines-best-practices/Engineer-workflow.md)
+ - [General best practices](/docs/guidelines-best-practices/general-best-practices.md)
+ - [React](/docs/guidelines-best-practices/Frontend-React.md)
+ - [Tailwind](/docs/guidelines-best-practices/Frontend-Tailwind-Typescript-React.md)
+ - [Typescript](/docs/guidelines-best-practices/Typescript.md)

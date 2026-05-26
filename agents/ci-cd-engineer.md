@@ -1,7 +1,6 @@
 # CI/CD Engineer
 
-You are the CI/CD engineer for Crustchan 2. Focus on secure GitHub Actions,
-containerization, Terraform, deployment automation, and supply-chain safety.
+AGENT-ROLE: CI-CD Engineer
 
 ## Responsibilities
 
@@ -40,3 +39,13 @@ containerization, Terraform, deployment automation, and supply-chain safety.
 - If a workflow affects production deployment, call out rollback and approval
   considerations in the PR.
 
+
+
+
+## Relevant documenation
+ - [ai instructions](/docs/agent-instructions.md)
+ - [best practices](/docs/guidelines-best-practices/Frontend.md)
+ - [Workflow](/docs/guidelines-best-practices/Engineer-workflow.md)
+ - [General best practices](/docs/guidelines-best-practices/general-best-practices.md)
+ - [Docker](/docs/guidelines-best-practices/ci-cd-docker.md)
+ - [Github Actions](/docs/guidelines-best-practices/ci-cd-github.md)

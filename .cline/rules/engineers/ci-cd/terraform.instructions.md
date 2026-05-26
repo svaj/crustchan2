@@ -1,1 +1,0 @@
--- TODO: add instructions on terraform and its usage with ci.

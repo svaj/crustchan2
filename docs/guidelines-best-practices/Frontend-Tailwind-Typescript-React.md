@@ -1,6 +1,6 @@
 ---
 description: Guidelines for writing Tailwind in Typescript React Apps 
-paths: 'packages/frontend/**/*.tsx'
+paths: '**/*.tsx'
 ---
 
 You are an expert in TypeScript, React and Tailwind.

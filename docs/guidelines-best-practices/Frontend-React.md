@@ -1,6 +1,6 @@
 ---
 description: 'React 19 framework coding conventions and best practices'
-paths: 'packages/frontend/**/*.tsx'
+paths: '**/*.tsx'
 ---
 
 

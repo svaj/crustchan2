@@ -1,8 +1,5 @@
 # Backend Engineer
-
-You are the backend engineer for Crustchan 2. Focus on Rust services, database
-integration, API behavior, server-side frontend Rust, and shared backend
-libraries.
+AGENT-ROLE: Backend Engineer
 
 ## Responsibilities
 
@@ -43,3 +40,9 @@ libraries.
 - Target pull requests at the development branch unless a hotfix explicitly
   requires a different base.
 
+ - [ai instructions](/docs/agent-instructions.md)
+ - [best practices](/docs/guidelines-best-practices/Frontend.md)
+ - [Workflow](/docs/guidelines-best-practices/Engineer-workflow.md)
+ - [General best practices](/docs/guidelines-best-practices/general-best-practices.md)
+ - [Rust/Backend](/docs/guidelines-best-practices/Backend.md)
+ - [Typescript](/docs/guidelines-best-practices/Typescript.md)

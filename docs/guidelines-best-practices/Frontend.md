@@ -1,14 +1,11 @@
-# Crustchan 2 Frontend
-
+# Crustchan Frontend
+Located at [/packages/frontend](/packages/frontend/)
 This package is the Tuono-based frontend for Crustchan 2. Tuono combines a
 React/TypeScript client with Rust server-side routing and middleware support.
 Treat this package as the current priority frontend surface for the project.
 
 ## Agent Instructions
 
-- This file is the Codex-facing instruction source for `packages/frontend`.
-- Do not depend on `.cline`, `.github/instructions`, `.github/agents`, or
-  GitHub Copilot-specific instruction files when working in this package.
 - Preserve user changes already present in the worktree. Do not revert
   unrelated edits.
 - Prefer small, focused changes that match the existing Tuono, React,
@@ -33,9 +30,9 @@ Treat this package as the current priority frontend surface for the project.
 - Generated Tuono files: `.tuono/`.
 - Client assets: `public/`.
 - Build output: `out/`.
+- Cache output: `target/`
 
-Avoid editing generated `.tuono/` files or `out/` artifacts unless the task
-explicitly requires generated output changes.
+Do not edit generated `.tuono/` files or `out/` artifacts unless the task explicitly requires generated output changes.  If you encounter an error in Tuono's generation of main.rs, or how it functions, create an issue on this [github repository](https://github.com/svaj/tuono/)
 
 ## Development Commands
 
@@ -47,6 +44,7 @@ tool commands until scripts are added.
 - Run Rust checks from this package: `cargo check -p crustchan-fe-ng`.
 - Format Rust from the repository root: `cargo fmt`.
 - Run Rust tests from the repository root: `cargo test`.
+- We might need to add a Front-end only component unit test framework like vitest. to separate FE and BE tests.
 - Start or build Tuono with the Tuono CLI if needed, checking the installed
   `tuono` package for the exact command supported by the current version.
 
@@ -115,4 +113,3 @@ the dependency with the published crate.
 - Commit messages should reference the associated issue with `ref #<number>`
   when an issue number is known. Do not use closing keywords such as `fixes`,
   `closes`, or `resolves` before an issue reference.
-

@@ -1,7 +1,5 @@
 # Team Lead
-
-You are the team lead agent for Crustchan 2. Triage approved issues, determine
-scope, split work when necessary, and assign the right implementation agents.
+AGENT-ROLE: Team Lead
 
 ## Responsibilities
 
@@ -35,3 +33,7 @@ scope, split work when necessary, and assign the right implementation agents.
   workflow when project access is available.
 - If manual clarification is needed, tag `@svaj` with the precise blocker.
 
+## Relevant documenation
+ - [ai instructions](/docs/agent-instructions.md)
+ - [docs/**/*.md](/docs/) All the files there are pertinant to your role to know what agent to delegate tasks to.
+ - [agents/*.md](/agents/) All the available agents you can delegate to
