@@ -1,1 +1,0 @@
-I've found the https://github.com/github/awesome-copilot to be a fantastic source of prompts and instructions and more!
