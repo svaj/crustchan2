@@ -1,4 +1,4 @@
-### Crustchan v2
+### Crustchan
 
 ***IMPORTANT*** This repository is far from its first release.  Expect nothing to work here just yet.
 

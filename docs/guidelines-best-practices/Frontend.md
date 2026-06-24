@@ -1,6 +1,6 @@
 # Crustchan Frontend
 Located at [/packages/frontend](/packages/frontend/)
-This package is the Tuono-based frontend for Crustchan 2. Tuono combines a
+This package is the Tuono-based frontend for Crustchan. Tuono combines a
 React/TypeScript client with Rust server-side routing and middleware support.
 Treat this package as the current priority frontend surface for the project.
 

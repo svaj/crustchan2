@@ -8,6 +8,7 @@ use std::sync::Arc;
 use tower_cookies::CookieManagerLayer;
 use uuid::Uuid;
 
+pub mod bans;
 pub mod boards;
 pub mod docs;
 pub mod errors;
@@ -16,6 +17,7 @@ pub mod reports;
 pub mod state;
 pub mod users;
 
+use bans::routes::ban_routes;
 use boards::routes::board_routes;
 use docs::docs_routes;
 use errors::AppError;
@@ -76,6 +78,7 @@ async fn start() -> anyhow::Result<()> {
         .nest_api_service("/boards", board_routes(state.clone()))
         .nest_api_service("/reports", report_routes(state.clone()))
         .nest_api_service("/users", user_routes(state.clone()))
+        .nest_api_service("/bans", ban_routes(state.clone()))
         .nest_api_service("/docs", docs_routes(state.clone()))
         .finish_api_with(&mut api, api_docs)
         .layer(Extension(Arc::new(api))) // Arc is very important here or you will face massive memory and performance issues
