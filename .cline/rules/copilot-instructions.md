@@ -13,7 +13,7 @@
 - **`.clineignore.md`** - Files and directories to ignore for any agent!  Just ignore the paths in this file.
 
 ### Rust Development
-- Follow conventions in `.github/instructions/rust.instructions.md`
+- Follow conventions in `.cline/rules/engineers/backend/rust.instructions.md`
 - Use `cargo fmt` for formatting and `cargo clippy` for linting
 - Implement comprehensive error handling with `Result<T, E>`
 - Prefer borrowing over cloning; use `Arc<T>` for thread-safe shared ownership
@@ -27,9 +27,9 @@
 
 
 ### Markdown & Documentation
-- Follow guidelines in `.github/instructions/markdown.instructions.md`
+- Follow guidelines in `.cline/rules/markdown.instructions.md`
 - All docs should have clear structure with H2/H3 headings
-- Multi-page documentation should link together with relative links and live in the `docs/` directory or in the relevant service  or agent directories
+- Multi-page documentation should link together with relative links and live in the `docs/` directory or in the relevant service or agent directories
 - Use code blocks with language specification
 - Keep line length under 400 characters
 
@@ -37,7 +37,7 @@
 - Multi-stage builds for efficiency
 - Use minimal base images (alpine, slim, distroless)
 - Prefer non-root users in containers if possible
-- only traefik and and cline services will ever use the host nework.  All other services will not expose/define ports and will use overlay networking.  This is to maintain security and avoid port conflicts on the host machine, as well as to encourage proper service discovery and communication through Docker's internal DNS.
+- Only Traefik and Cline services should ever use the host network. All other services should not expose/define ports and should use overlay networking. This maintains security and avoids port conflicts on the host machine, and encourages proper service discovery and communication through Docker's internal DNS.
 - If a service needs public exposure, it should be done via traefik deploy labels.
 - See `.github/instructions/containerization-docker-best-practices.instructions.md`
 
@@ -53,19 +53,19 @@ When working on specific areas, consult:
 
 | Area | Document |
 |------|----------|
-| Rust best practices | `.cline/instructions/engineers/backend/rust.instructions.md` |
-| Docker/containerization | `.cline/instructions/engineers/ci-cd/containerization-docker-best-practices.instructions.md` |
-| GitHub Actions workflows | `.cline/instructions/engineers/ci-cd/github-actions-ci-cd.instructions.md` |
-| Product requirements | `.cline/instructions/prd.instructions.md` |
-| React expertise | `.cline/instructions/frontend/react.md` |
-| Tailwind expertise | `.cline/instructions/frontend/tailwind.md` |
-| Typescript expertise | `.cline/instructions//frontend/typescript.md` |
-| PR Review| `.cline/instructions/engineers/pr-review/review.instructions.md` |
-| AI Enablement| `.cline/instructions/ai-enablement.instructions.md` |
-| AI Enablement| `.cline/instructions/engineeer-workflow.instructions.md` |
-| AI Enablement| `.cline/instructions/general-best-practices.instructions.md` |
-| Markdown documentation | `.cline/instructions/markdown.instructions.md` |
-| Markdown documentation | `.cline/instructions/sync-agent.instructions.md` |
+| Rust best practices | `.cline/rules/engineers/backend/rust.instructions.md` |
+| Docker/containerization | `.cline/rules/engineers/ci-cd/containerization-docker-best-practices.instructions.md` |
+| GitHub Actions workflows | `.cline/rules/engineers/ci-cd/github-actions-ci-cd.instructions.md` |
+| Product requirements | `.cline/agents/prd.agent.md` |
+| React expertise | `.cline/rules/engineers/frontend/react.instructions.md` |
+| Tailwind expertise | `.cline/rules/engineers/frontend/tailwind.instructions.md` |
+| TypeScript expertise | `.cline/rules/engineers/frontend/typescript.instructions.md` |
+| PR Review | `.cline/rules/engineers/pr-review/review.instructions.md` |
+| AI Enablement | `.cline/rules/ai-enablement.instructions.md` |
+| Engineer workflow | `.cline/rules/engineer-workflow.instructions.md` |
+| General best practices | `.cline/rules/general-best-practices.md` |
+| Markdown documentation | `.cline/rules/markdown.instructions.md` |
+| Sync agent | `.cline/rules/sync-agent.instructions.md`
 
 ## Development Workflow
 

@@ -1,6 +1,6 @@
 The entirety of team resources can be found locally in the following places:
 
-(Check ~/.cline and /~.github first, and then workspace .cline and .github)
+(Check ~/.cline and ~/.github first, and then workspace .cline and .github)
 
 ## Reference Documents
 
@@ -8,19 +8,19 @@ When working on specific areas, consult:
 
 | Area | Document |
 |------|----------|
-| Rust best practices | `.cline/instructions/engineers/backend/rust.instructions.md` |
-| Docker/containerization | `.cline/instructions/engineers/ci-cd/containerization-docker-best-practices.instructions.md` |
-| GitHub Actions workflows | `.cline/instructions/engineers/ci-cd/github-actions-ci-cd.instructions.md` |
-| Product requirements | `.cline/instructions/prd.instructions.md` |
-| React expertise | `.cline/instructions/frontend/react.md` |
-| Tailwind expertise | `.cline/instructions/frontend/tailwind.md` |
-| Typescript expertise | `.cline/instructions//frontend/typescript.md` |
-| PR Review| `.cline/instructions/engineers/pr-review/review.instructions.md` |
-| AI Enablement| `.cline/instructions/ai-enablement.instructions.md` |
-| AI Enablement| `.cline/instructions/engineeer-workflow.instructions.md` |
-| AI Enablement| `.cline/instructions/general-best-practices.instructions.md` |
-| Markdown documentation | `.cline/instructions/markdown.instructions.md` |
-| Markdown documentation | `.cline/instructions/sync-agent.instructions.md` |
+| Rust best practices | `.cline/rules/engineers/backend/rust.instructions.md` |
+| Docker/containerization | `.cline/rules/engineers/ci-cd/containerization-docker-best-practices.instructions.md` |
+| GitHub Actions workflows | `.cline/rules/engineers/ci-cd/github-actions-ci-cd.instructions.md` |
+| Product requirements | `.cline/agents/prd.agent.md` |
+| React expertise | `.cline/rules/engineers/frontend/react.instructions.md` |
+| Tailwind expertise | `.cline/rules/engineers/frontend/tailwind.instructions.md` |
+| TypeScript expertise | `.cline/rules/engineers/frontend/typescript.instructions.md` |
+| PR Review | `.cline/rules/engineers/pr-review/review.instructions.md` |
+| AI Enablement | `.cline/rules/ai-enablement.instructions.md` |
+| Engineer workflow | `.cline/rules/engineer-workflow.instructions.md` |
+| General best practices | `.cline/rules/general-best-practices.md` |
+| Markdown documentation | `.cline/rules/markdown.instructions.md` |
+| Sync agent | `.cline/rules/sync-agent.instructions.md`
 
 ## Development Workflow
 
@@ -37,4 +37,4 @@ When working on specific areas, consult:
 - **No AWS**: Infrastructure should be cloud-agnostic (deploy to Docker swarm, maybe support k8s and/or helm charts, with terraform a low priority) With first attempt at deploying into docker swarm via github workflows.
 - **Avoid slop**: Maintain code quality standards despite automated assistance
 
-## If you feel an additional tool, skill, mcp server, graphql access, a database, dedicated cloud task runners, etc. would make your tasks easier, cheaper and better to deal with.  Do some reasearch and let me know (directly or via slack (chris svajlenka) or discord (svajy / mealworm))
+## If you feel an additional tool, skill, MCP server, GraphQL access, a database, dedicated cloud task runners, etc. would make your tasks easier, cheaper, and better to deal with, do some research and let me know (directly or via Slack (Chris Svajlenka) or Discord (svajy / mealworm)).
